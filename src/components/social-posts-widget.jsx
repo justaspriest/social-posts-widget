@@ -1,7 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
+import { createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Toolbar from '@material-ui/core/Toolbar';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import Post from './post/post.jsx';
@@ -9,6 +13,12 @@ import SocialPostsWidgetTitle from './title/title.jsx'
 
 import fetchLastPosts from '../services/mass-relevance-service';
 import useInterval from '../helpers/use-interval';
+
+const widgetTheme = createMuiTheme({
+    palette: {
+        primary: blue
+    }
+});
 
 const mapPostDataToComponent =
     (postData) => <Post key={postData.id} data={postData} />;
@@ -51,15 +61,23 @@ const SocialPostsWidget = (props) => {
     }, refreshInterval, true);
 
     return (
-        <React.Fragment>
+        <ThemeProvider theme={widgetTheme}>
+        //<React.Fragment>
             <CssBaseline />
             <SocialPostsWidgetTitle text="Social Posts Widget" />
             <Toolbar />
             <Container maxWidth="sm">
                 { posts }
             </Container>
-        </React.Fragment>
+        //</React.Fragment>
+        </ThemeProvider>
     );
+};
+
+SocialPostsWidget.propTypes = {
+    feedURL: PropTypes.string,
+    countOfPosts: PropTypes.number,
+    refreshInterval: PropTypes.number
 };
 
 export default SocialPostsWidget;
