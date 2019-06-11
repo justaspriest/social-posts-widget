@@ -4,7 +4,13 @@ module.exports = {
     },
     output: {
         filename: 'js/social-posts-widget.js',
-        path: __dirname + '/build'
+        path: __dirname + '/build',
+        libraryTarget: 'commonjs2',
+        libraryExport: 'default'
+    },
+    externals: {
+        react: 'react',
+        reactDOM: 'react-dom'
     },
     module: {
         rules: [
