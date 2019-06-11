@@ -62,14 +62,12 @@ const SocialPostsWidget = (props) => {
 
     return (
         <ThemeProvider theme={widgetTheme}>
-        //<React.Fragment>
             <CssBaseline />
             <SocialPostsWidgetTitle text="Social Posts Widget" />
             <Toolbar />
             <Container maxWidth="sm">
                 { posts }
             </Container>
-        //</React.Fragment>
         </ThemeProvider>
     );
 };
