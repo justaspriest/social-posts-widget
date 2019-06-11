@@ -1,5 +1,6 @@
 
 const mapFeedToPosts = feedData => {
+    console.log(feedData);
     return {
         id: feedData.id,
         date: feedData.created_at,

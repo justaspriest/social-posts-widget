@@ -1,30 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import fetchLastPosts from '../services/MassRelevanceService';
 
-const mapPostDataToComponent = (post) => {
-    return (
-        <p key={post.id}>{post.text}</p>
-    );
-}
-
-const useInterval = (callback, delay, preFire) => {
-    const callbackRef = useRef();
-
-    useEffect(() => {
-        callbackRef.current = callback;
-    }, [callback]);
-
-    useEffect(() => {
-        const tick = () => { callbackRef.current() };
-        if (preFire) {
-            tick();
-        }
-        if (delay !== null) {
-            let id = setInterval(tick, delay);
-            return () => clearInterval(id);
-        }
-    }, [delay]);
-};
+import useInterval from '../helpers/use-interval';
+import Post from './post/post.jsx';
 
 const SocialPostsWidget = (props) => {
     let [posts, setPosts] = useState([]);
@@ -41,7 +19,7 @@ const SocialPostsWidget = (props) => {
     return (
         <div>
             <h3>Social Posts Widget</h3>
-            { posts.map(mapPostDataToComponent) }
+            { posts.map((post) => <Post key={post.id} data={post} />) }
         </div>
     );
 };
