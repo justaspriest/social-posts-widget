@@ -1,28 +1,28 @@
-import React, { useState } from 'react';
-import { createMuiTheme } from '@material-ui/core/styles';
-import blue from '@material-ui/core/colors/blue';
-import { ThemeProvider } from '@material-ui/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Toolbar from '@material-ui/core/Toolbar';
-import PropTypes from 'prop-types';
-import moment from 'moment';
+import { Container, CssBaseline, Toolbar } from "@material-ui/core";
+import blue from "@material-ui/core/colors/blue";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import moment from "moment";
+import React, { useState } from "react";
 
-import Post from './post/post.jsx';
-import SocialPostsWidgetTitle from './title/title.jsx'
+import useInterval from "../helpers/use-interval";
+import fetchLastPosts from "../services/mass-relevance-service";
 
-import fetchLastPosts from '../services/mass-relevance-service';
-import useInterval from '../helpers/use-interval';
+import Post from "./post/post";
+import { PostNS } from "./post/post-ns";
+import { SocialPostsWidgetNS } from "./social-posts-widget-ns";
+import SocialPostsWidgetTitle from "./title/title";
 
 const widgetTheme = createMuiTheme({
     palette: {
-        primary: blue
-    }
+        primary: blue,
+    },
 });
 
 const mapPostDataToComponent =
-    (postData) => <Post key={postData.id} data={postData} />;
-const filterOldPosts = (postData, latestPostDate) => {
+    (postData: PostNS.IData) => <Post key={postData.id} data={postData} />;
+
+const filterOldPosts = (postData: PostNS.IData, latestPostDate?: string) => {
     if (latestPostDate) {
         const latestDate = moment(latestPostDate);
         const postDate = moment(postData.created_at);
@@ -32,8 +32,8 @@ const filterOldPosts = (postData, latestPostDate) => {
     return true;
 };
 
-const SocialPostsWidget = (props) => {
-    let [posts, setPosts] = useState([]);
+const SocialPostsWidget = (props: SocialPostsWidgetNS.IWidgetProps) => {
+    const [posts, setPosts] = useState<SocialPostsWidgetNS.IPost[]>([]);
 
     const fetchPosts = async () => {
         const countOfPosts = props.countOfPosts;
@@ -41,7 +41,9 @@ const SocialPostsWidget = (props) => {
         const latestPostDateEntry =
             posts.length > 0 ? posts[0].props.data.created_at : undefined;
         const newPosts = fetchedPosts
-            .filter(postData => filterOldPosts(postData, latestPostDateEntry))
+            .filter((postData: PostNS.IData) => filterOldPosts(
+                postData, latestPostDateEntry,
+            ))
             .slice(0, countOfPosts)
             .map(mapPostDataToComponent);
 
@@ -50,7 +52,7 @@ const SocialPostsWidget = (props) => {
 
         const postComponents = newPosts.concat(oldPostsTail);
         setPosts(postComponents);
-    }
+    };
 
     const defaultInterval = 300;
     const refreshInterval = props.refreshInterval > defaultInterval ?
@@ -66,16 +68,10 @@ const SocialPostsWidget = (props) => {
             <SocialPostsWidgetTitle text="Social Posts Widget" />
             <Toolbar />
             <Container maxWidth="sm">
-                { posts }
+                {posts}
             </Container>
         </ThemeProvider>
     );
-};
-
-SocialPostsWidget.propTypes = {
-    feedURL: PropTypes.string,
-    countOfPosts: PropTypes.number,
-    refreshInterval: PropTypes.number
 };
 
 export default SocialPostsWidget;
