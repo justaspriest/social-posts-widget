@@ -1,4 +1,6 @@
 # Social Posts Widget
+Hi there, thank you for checking my ~~awesome~~ widget!
+
 ## Build
 To build widget you need to execute the npm script:
 ```
@@ -25,7 +27,7 @@ As you can see from the example above you need to include React and ReactDOM lib
 
 ## Under the hood this widget uses:
 + [React](https://ru.react.js.org) including React Hooks!
-+ [PropTypes](https://www.npmjs.com/package/prop-types) for property validation
++ [Typescript](https://www.typescriptlang.org/)
 + [material-ui](https://material-ui.com) as a design framework
 + [webpack](https://webpack.js.org/) for project building
 + [moment](https://momentjs.com) for date operations
