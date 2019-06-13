@@ -8,7 +8,7 @@ export namespace SocialPostsWidgetNS {
         refreshInterval: number;
     }
 
-    export interface IPost {
+    export interface IPost extends JSX.Element {
         props: PostNS.IProps;
     }
 }
