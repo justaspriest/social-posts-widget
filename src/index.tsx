@@ -2,48 +2,61 @@ import React, { useState } from "react";
 
 import { compareDateEntries } from "./helpers/date";
 import useInterval from "./helpers/use-interval";
-import fetchLastPosts from "./services/mass-relevance-service";
+import { mapFeedToPostsData } from "./mappers/mass-relevance-mapper";
+import { fetchData } from "./services/fetcher";
 
 import { PostList } from "./components/post/post-list";
-import { PostNS } from "./components/post/post-ns";
 import { Title } from "./components/title/title";
-import { SocialPostsWidgetNS } from "./index-ns";
+import { Post, Widget } from "./index-ns";
 
-const filterOldPosts = (postData: PostNS.PostData, latestPostDate?: string) => {
+const MIN_INTERVAL = 300;
+
+const filterOldPosts = (postData: Post.Data, latestPostDate?: string) => {
   if (latestPostDate) {
     return compareDateEntries(postData.created_at, latestPostDate) > 0;
   }
-
   return true;
 };
 
-const SocialPostsWidget = (props: SocialPostsWidgetNS.IWidgetProps) => {
-  const [posts, setPosts] = useState<PostNS.PostData[]>([]);
-
-  const fetchPosts = async () => {
-    const countOfPosts = props.countOfPosts;
-    const fetchedPosts = await fetchLastPosts(props.feedURL, countOfPosts);
-    const latestPostDateEntry =
-      posts.length > 0 ? posts[0].created_at : undefined;
-    const newPosts = fetchedPosts
-      .filter((postData: PostNS.PostData) => filterOldPosts(
-        postData, latestPostDateEntry,
-      ))
-      .slice(0, countOfPosts);
-
-    const oldPostsCount = countOfPosts - newPosts.length;
-    const oldPostsTail = posts.slice(0, oldPostsCount);
-
-    const postComponents = newPosts.concat(oldPostsTail);
-    setPosts(postComponents);
+const fetchMassRelevanceAPI = async (feedURL: string, countOfPosts: number) => {
+  const params = {
+    query: {
+      limit: countOfPosts,
+    },
   };
+  return fetchData(feedURL, params)
+    .then(mapFeedToPostsData);
+};
 
-  const defaultInterval = 300;
-  const refreshInterval = props.refreshInterval > defaultInterval ?
-    props.refreshInterval : defaultInterval;
+const fetchPosts = async (
+    feedURL: string,
+    countOfPosts: number,
+    posts: Post.Data[]) => {
+  const fetchedPosts = await fetchMassRelevanceAPI(feedURL, countOfPosts);
+  const latestPostDateEntry =
+    posts.length > 0 ? posts[0].created_at : undefined;
+  const newPosts = fetchedPosts
+    .filter((postData: Post.Data) => filterOldPosts(
+      postData, latestPostDateEntry,
+    ))
+    .slice(0, countOfPosts);
 
-  useInterval(() => {
-    fetchPosts();
+  const oldPostsCount = countOfPosts - newPosts.length;
+  const oldPostsTail = posts.slice(0, oldPostsCount);
+
+  return newPosts.concat(oldPostsTail);
+};
+
+const SocialPostsWidget = (props: Widget.Props) => {
+  const [posts, setPosts] = useState<Post.Data[]>([]);
+
+  const refreshInterval = props.refreshInterval > MIN_INTERVAL ?
+    props.refreshInterval : MIN_INTERVAL;
+
+  useInterval(async () => {
+    const postsData =
+      await fetchPosts(props.feedURL, props.countOfPosts, posts);
+    setPosts(postsData);
   }, refreshInterval, true);
 
   return (

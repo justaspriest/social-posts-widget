@@ -1,8 +1,8 @@
 import * as React from "react";
 
-export interface ISocialPostsWidgetTitleProps { text: string; }
+import { Widget } from "../../index-ns";
 
-const Title = (props: ISocialPostsWidgetTitleProps) => {
+const Title = (props: Widget.TitleProps) => {
   return (
     <div>
       <h4>{props.text}</h4>

@@ -1,15 +1,15 @@
 import * as React from "react";
 
+import { Post as PostNS } from "../../index-ns";
 import mapTextToComponents from "../../mappers/map-text-to-components";
 import { PostDate } from "./post-date";
-import { PostNS } from "./post-ns";
 
-const Post = (props: PostNS.PostProps) => {
+const Post = (props: PostNS.Props) => {
   const postData = props.data;
 
   const postDate = postData.created_at;
   const postText = postData.text;
-  const userName = postData.user.name;
+  const userName = postData.userName;
 
   return (
     <div>

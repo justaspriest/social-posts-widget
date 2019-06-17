@@ -1,14 +1,12 @@
-import { PostNS } from "../components/post/post-ns";
+import { MassRelevance, Post } from "../index-ns";
 
-const mapFeedToPostsData = (feed: []): PostNS.PostData[] => {
-  return feed.map((data: PostNS.PostData) => {
-    return {
-      created_at: data.created_at,
-      id: data.id,
-      text: data.text,
-      user: data.user,
-    } as PostNS.PostData;
-  });
-};
+const feedToPostsData = ({ created_at: createdAt, id, text, user: { name: userName }}: MassRelevance.Feed) => ({
+  created_at: createdAt,
+  id,
+  text,
+  userName,
+} as Post.Data);
 
-export default mapFeedToPostsData;
+const mapFeedToPostsData = (feed: MassRelevance.Feed[]) => feed.map(feedToPostsData);
+
+export { mapFeedToPostsData };

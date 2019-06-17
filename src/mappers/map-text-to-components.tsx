@@ -15,8 +15,21 @@ const mapTextEntryToComponent = (textEntry: string, index: number) => {
 };
 
 const mapTextLineToComponent = (textLine: string, index: number) => {
+  let textElementIndex = 0;
+  const textElementOffset = 2;
+
   const lineContent = textLine.split(TEXT_SPLITTER)
-    .map(mapTextEntryToComponent);
+    .map(mapTextEntryToComponent)
+    .reduce((acc, entry) => {
+      if (React.isValidElement(entry)) {
+        acc.push(entry);
+        textElementIndex = textElementIndex + textElementOffset;
+        return acc;
+      }
+      const currentEntry = acc[textElementIndex] as string;
+      acc[textElementIndex] = currentEntry + entry;
+      return acc;
+    }, [""] as Array<string | JSX.Element>);
   return (
     <p key={"line" + index}>{lineContent}</p>
   );
