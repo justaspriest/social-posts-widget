@@ -1,21 +1,21 @@
 export namespace PostNS {
 
-    export interface PostListProps {
-        postsData: IData[];
-    }
+  export interface PostListProps {
+    postsData: PostData[];
+  }
 
-    interface IDataUser { name: string; }
+  interface UserData { name: string; }
 
-    export interface IData {
-        id: number;
-        created_at: string;
-        text: string;
-        user: IDataUser;
-    }
+  export interface PostData {
+    id: number;
+    created_at: string;
+    text: string;
+    user: UserData;
+  }
 
-    export interface IProps { data: IData; }
+  export interface PostProps { data: PostData; }
 
-    export interface IDateProps {
-        date: string;
-    }
+  export interface DateProps {
+    date: string;
+  }
 }
