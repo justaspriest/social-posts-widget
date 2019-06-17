@@ -1,5 +1,9 @@
 export namespace PostNS {
 
+    export interface PostListProps {
+        postsData: IData[];
+    }
+
     interface IDataUser { name: string; }
 
     export interface IData {
@@ -13,6 +17,5 @@ export namespace PostNS {
 
     export interface IDateProps {
         date: string;
-        format: string;
     }
 }

@@ -1,6 +1,6 @@
-import { PostNS } from "./post/post-ns";
+import { PostNS } from "./components/post/post-ns";
 
-export namespace SocialPostsWidgetNS {
+export declare namespace SocialPostsWidgetNS {
 
     export interface IWidgetProps {
         feedURL: string;

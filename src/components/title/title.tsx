@@ -1,16 +1,13 @@
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import * as React from "react";
 
 export interface ISocialPostsWidgetTitleProps { text: string; }
 
-const SocialPostsWidgetTitle = (props: ISocialPostsWidgetTitleProps) => {
+const Title = (props: ISocialPostsWidgetTitleProps) => {
     return (
-        <AppBar>
-            <Toolbar>
-                <Typography variant="h4">{props.text}</Typography>
-            </Toolbar>
-        </AppBar>
+        <div>
+            <h4>{props.text}</h4>
+        </div>
     );
 };
 
-export default SocialPostsWidgetTitle;
+export { Title };

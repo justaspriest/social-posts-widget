@@ -3,19 +3,14 @@ const MODULE_DIR = __dirname + '/node_modules';
 const EXCLUDED_DIR_LIST = [BUILD_DIR, MODULE_DIR];
 
 module.exports = {
-    entry: {
-        widget: './src/components/social-posts-widget.tsx'
-    },
+    entry: './src/index.tsx',
     output: {
         filename: 'js/social-posts-widget.js',
         path: BUILD_DIR,
         libraryTarget: 'commonjs2',
         libraryExport: 'default'
     },
-    externals: {
-        react: 'react',
-        "react-dom": 'react-dom'
-    },
+    devtool: "source-map",
     resolve: {
         extensions: [
             ".ts", ".tsx", ".js", ".jsx"
@@ -24,21 +19,20 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /.jsx?$/,
-                exclude: EXCLUDED_DIR_LIST,
-                loader: 'babel-loader'
-            },
-            {
                 test: /.tsx?$/,
                 exclude: EXCLUDED_DIR_LIST,
-                loader: 'babel-loader'
+                loader: 'awesome-typescript-loader'
             },
             {
                 test: /\.js$/,
                 exclude: EXCLUDED_DIR_LIST,
-                use: ['source-map-loader'],
+                loader: 'source-map-loader',
                 enforce: 'pre'
             }
         ]
+    },
+    externals: {
+        react: 'react',
+        "react-dom": 'react-dom'
     }
 }

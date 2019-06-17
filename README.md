@@ -28,6 +28,4 @@ As you can see from the example above you need to include React and ReactDOM lib
 ## Under the hood this widget uses:
 + [React](https://ru.react.js.org) including React Hooks!
 + [Typescript](https://www.typescriptlang.org/)
-+ [material-ui](https://material-ui.com) as a design framework
 + [webpack](https://webpack.js.org/) for project building
-+ [moment](https://momentjs.com) for date operations

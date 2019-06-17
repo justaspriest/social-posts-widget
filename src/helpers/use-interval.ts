@@ -10,7 +10,11 @@ const useInterval = (callback: VoidFunction, delay: number, preFire: boolean) =>
     }, [callback]);
 
     useEffect(() => {
-        const tick = () => { callbackRef.current(); };
+        const tick = () => {
+            if (callbackRef.current != null) {
+                callbackRef.current();
+            }
+        };
         if (preFire) {
             tick();
         }
