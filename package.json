@@ -5,7 +5,7 @@
   "main": "index.tsx",
   "scripts": {
     "dev:build": "webpack --mode development ",
-    "dev:start": "npm run dev:build && rm -rf dev/js && ln -s $PWD/build dev/js && webpack-dev-server --mode development --open",
+    "dev:start": "npm run dev:build && webpack-dev-server --mode development --open",
     "build": "webpack --mode production"
   },
   "author": "justaspriest",

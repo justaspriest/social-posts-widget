@@ -7,7 +7,6 @@ To start dev server for the widget just to execute the following npm script:
 ```
 npm run dev:start
 ```
-**NOTE: Works only under Linux!!!**
 
 ## Build
 To build widget you need to execute the npm script:

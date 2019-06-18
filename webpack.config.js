@@ -1,8 +1,9 @@
 const BUILD_DIR = __dirname + '/build';
+const DEV_DIR = __dirname + '/dev';
 const MODULE_DIR = __dirname + '/node_modules';
 const EXCLUDED_DIR_LIST = [BUILD_DIR, MODULE_DIR];
 
-module.exports = {
+var config = {
   entry: {
     widget: './src/index.tsx'
   },
@@ -14,7 +15,7 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: './dev',
+    contentBase: DEV_DIR,
     host: '0.0.0.0',
     port: 3000
   },
@@ -42,4 +43,21 @@ module.exports = {
     react: 'React',
     'react-dom': 'ReactDOM'
   }
+}
+
+module.exports = (env, argv) => {
+  if (argv.mode === 'development') {
+    const fs = require('fs');
+    const devResources = `${DEV_DIR}/js`;
+    if (fs.existsSync(devResources)) {
+      fs.unlinkSync(devResources);
+      console.log(`Symlink ${devResources} deleted`);
+    }
+    fs.symlink(BUILD_DIR, devResources, 'dir', (err) => {
+      if (err) throw err;
+      console.log(`Created symlink from ${BUILD_DIR} to ${devResources}`);
+    });
+  }
+
+  return config;
 }
