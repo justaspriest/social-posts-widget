@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { SocialPostsWidget } from "./components/widget";
+import { SocialPostsWidget } from "./templates/widget";
 
 const injectWidget = (
   containerSelector: string = "#social-posts-widget",

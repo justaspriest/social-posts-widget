@@ -17,26 +17,14 @@ export declare namespace Post {
     postsData: Data[];
   }
 
-  export interface Data extends PostData {
-    userName: string;
-  }
-
-  interface PostData {
+  export interface Data {
     id: number;
     created_at: string;
     text: string;
+    userName: string;
   }
 
   export interface DateProps {
     date: string;
   }
-}
-
-export declare namespace MassRelevance {
-
-    export interface Feed extends Post.PostData {
-      user: UserData;
-    }
-
-    interface UserData { name: string; }
 }

@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Widget } from "../../index-ns";
+import { Widget } from "../index-ns";
 
 const Title = (props: Widget.TitleProps) => {
   return (

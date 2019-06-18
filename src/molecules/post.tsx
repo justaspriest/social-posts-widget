@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { Post as PostNS } from "../../index-ns";
-import mapTextToComponents from "../../mappers/map-text-to-components";
-import { PostDate } from "./post-date";
+import { PostDate } from "../atoms/post-date";
+import { Post as PostNS } from "../index-ns";
+import mapTextToComponents from "../lib/map-text-to-components";
 
 const Post = (props: PostNS.Props) => {
   const postData = props.data;

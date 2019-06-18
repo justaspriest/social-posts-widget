@@ -1,13 +1,14 @@
 import React, { Fragment, useState } from "react";
 
-import { compareDateEntries } from "../helpers/date";
-import useInterval from "../helpers/use-interval";
 import { Post, Widget } from "../index-ns";
-import { mapFeedToPostsData } from "../mappers/mass-relevance-mapper";
-import { fetchData } from "../services/fetcher";
 
-import { PostList } from "./post/post-list";
-import { Title } from "./title/title";
+import { compareDateEntries } from "../lib/date";
+import { fetchData } from "../lib/fetcher";
+import { mapFeedToPostsData } from "../lib/mass-relevance-mapper";
+import useInterval from "../lib/use-interval";
+
+import { Title } from "../atoms/title";
+import { PostList } from "../organisms/post-list";
 
 const MIN_INTERVAL = 300;
 

@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Post as PostNS } from "../../index-ns";
-import { Post } from "./post";
+import { Post as PostNS } from "../index-ns";
+import { Post } from "../molecules/post";
 
 const mapPostDataToComponent =
   (postData: PostNS.Data) => <Post key={postData.id} data={postData} />;
