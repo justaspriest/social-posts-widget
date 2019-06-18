@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Social Posts Widget Test</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  </head>
+  <body>
+    <div id="social-posts-widget"></div>
+    <script type="text/javascript" src="/js/social-posts-widget.js"></script>
+    <!-- Injecting the widget with default params
+      You can use the following arguments for injectWidget:
+      (default values are shown in parentheses)
+      - containerSelector: string ("#social-posts-widget"),
+      - feedURL: string (http://api.massrelevance.com/MassRelDemo/kindle.json),
+      - countOfPosts: number (20),
+      - refreshInterval: number (5000)
+    -->
+    <script>
+      socPost.injectWidget();
+    </script>
+  </body>
+</html>

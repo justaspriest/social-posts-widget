@@ -1,6 +1,14 @@
 # Social Posts Widget
 Hi there, thank you for checking my ~~awesome~~ widget!
 
+## Dev Mode
+The development mode is introduced!
+To start dev server for the widget just to execute the following npm script:
+```
+npm run dev:start
+```
+**NOTE: Works only under Linux!!!**
+
 ## Build
 To build widget you need to execute the npm script:
 ```
@@ -15,15 +23,36 @@ You need to place this file somewhere where your app can grab it.
 ## Usage
 Can be embedded inside a React application with the following code:
 ```javascript
-const SocialPostsWidget = require(<path to builded .js file>);
-const container = document.querySelector(<your very cool element selector>);
+import "<PATH_TO_WIDGET_FILE>/social-posts-widget.js";
 
-ReactDOM.render(<SocialPostsWidget
-    feedURL={ feedURL }
-    countOfPosts={ countOfPosts }
-    refreshInterval={ refreshInterval }/>, container);
+const SocialPostsWidget = socPost.SocialPostsWidget;
+const container = document.querySelector(<your very cool element selector>);
+ReactDOM.render((
+  <SocialPostsWidget
+    feedURL={feedURL}
+    countOfPosts={countOfPosts}
+    refreshInterval={refreshInterval}
+  />
+), container);
 ```
-As you can see from the example above you need to include React and ReactDOM libraries in your project.
+Or you can inject the widget in your html with helper function:
+```html
+...
+<script type="text/javascript" src="<URL_TO_WIDGET_FILE>/social-posts-widget.js"></script>
+<!-- Injecting the widget with default params
+  You can use the following arguments for injectWidget:
+  (default values are shown in parentheses)
+  - containerSelector: string ("#social-posts-widget"),
+  - feedURL: string (http://api.massrelevance.com/MassRelDemo/kindle.json),
+  - countOfPosts: number (20),
+  - refreshInterval: number (5000)
+-->
+<script>
+  socPost.injectWidget();
+</script>
+...
+```
+**NOTE: You need to include React and ReactDOM libraries in your project.**
 
 ## Under the hood this widget uses:
 + [React](https://ru.react.js.org) including React Hooks!
