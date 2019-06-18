@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from "react";
+import * as React from "react";
+import { Fragment, useState } from "react";
 
 import { Post, Widget } from "../index-ns";
 

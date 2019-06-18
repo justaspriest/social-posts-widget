@@ -8,6 +8,12 @@ To start dev server for the widget just to execute the following npm script:
 npm run dev:start
 ```
 
+## Testing
+Tests use [jest](https://jestjs.io/) and can be run with the following script:
+```
+npm test
+```
+
 ## Build
 To build widget you need to execute the npm script:
 ```
@@ -54,6 +60,8 @@ Or you can inject the widget in your html with helper function:
 **NOTE: You need to include React and ReactDOM libraries in your project.**
 
 ## Under the hood this widget uses:
++ [webpack](https://webpack.js.org/) for project building
 + [React](https://ru.react.js.org) including React Hooks!
 + [Typescript](https://www.typescriptlang.org/)
-+ [webpack](https://webpack.js.org/) for project building
++ [Atomic design](http://atomicdesign.bradfrost.com/table-of-contents/)
++ [jest](https://jestjs.io/)

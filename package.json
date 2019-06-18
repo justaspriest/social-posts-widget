@@ -6,19 +6,23 @@
   "scripts": {
     "dev:build": "webpack --mode development ",
     "dev:start": "npm run dev:build && webpack-dev-server --mode development --open",
-    "build": "webpack --mode production"
+    "test": "jest",
+    "build": "npm test && webpack --mode production"
   },
   "author": "justaspriest",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^24.0.15",
     "@types/react": "^16.8.19",
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.3",
     "@types/webpack-env": "^1.13.9",
     "awesome-typescript-loader": "^5.2.1",
+    "jest": "^24.8.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "source-map-loader": "^0.2.4",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "tslint-react": "^4.0.0",
     "typescript": "^3.5.1",
